@@ -1,122 +1,94 @@
-# Desafio Laboratória <> 180 Seguros
+## <div align="center"> DESAFIO 180 SEGUROS
 
-Bem-vinda ao desafio técnico da 180 Seguros em conjunto com a Laboratória! Esperamos que seja divertido e, caso você tenha qualquer dúvida, fique a vontade para entrar em contato com a gente :)
+![Squad](./resources/squad180S.svg)
 
-## Desafio
+</div>
 
-Você foi contratada pela 180! Durante a sua primeira reunião de planejamento semanal, decidimos em conjunto a sua primeira tarefa:
+## Resumo do projeto
 
-### LAB-001 - Criar o endpoint GET /policyholders/:policyholderId na API da 180
+Neste projeto, foi desenvolvido um desafio técnico da empresa 180 Seguros em parceria com a Laboratória. Nele, a criação do _endpoint_ GET na API (_Application Programming Interface_ -  Interface de Programação de Aplicação) da 180 foi realizado. O objetivo principal consiste em solucionar um problema do nosso cliente. Eles, solicitaram uma nova rota, dentro do nossa API já existente, onde seja possível buscar um segurado, previamente cadastrado, utilizando o campo de ID. Ou seja, o desafio consiste em: Criar o _endpoint_ GET. Caso o segurado exista, retornar os dados do mesmo com o código HTTP 200, e, caso o segurado não exista, retornar o código HTTP 404 e com o corpo (_body_) vazio.
 
-Os clientes da nossa seguradora estão pedindo uma nova rota, dentro do nossa API já existente, onde seja possível buscar um segurado, previamente cadastrado, utilizando o campo de ID.
 
-Durante o refinamento técnico desta tarefa, decidimos que a nova rota teria o seguinte padrão: `/policyholders/:policyholderId`, onde o parâmetro `:policyholderId` representa o ID da pessoa segurada que está sendo buscada.
+## Organização
 
-Por exemplo: supondo que o seguinte segurado já tenha sido cadastrado:
+Antes de iniciar o projeto, foi criado um fluxograma para visualizar com excelência as etapas de desenvolvimento do mesmo, incluindo o planejamento de tarefas e objetivos utilizando o Trello, seguindo uma sequência lógica de estudos e tomada de decisões.
 
-```json
-{
-  "id": 1,
-  "name": "Maria Silva"
-}
-```
+* Fluxograma:
 
-Ao chamar a rota `/policyholders/1`, devemos retornar estes mesmos dados no corpo da resposta, com o código HTTP 200:
+![Fluxograma](./resources/fluxograma.jpeg)
 
-```json
-{
-  "id": 1,
-  "name": "Maria Silva"
-}
-```
+* Trello: 
 
-Porém, caso o segurado ainda não tenha sido cadastrado (por exemplo: `/policyholders/99`), devemos retornar uma resposta com o código HTTP 404, indicando que o segurado não existe em nosso sistema. O corpo da resposta pode ser vazio, já que somente o código HTTP nos interessa para este desafio.
+![Trello](./resources/trello-180S.gif)
 
-Resumindo, o que você precisa fazer:
+## Rodando a aplicação pela primeira vez
 
-- Criar o endpoint `GET /policyholders/:policyholderId`
-  - Caso o segurado exista, retornar os dados do mesmo com o código HTTP 200
-  - Caso o segurado não exista, retornar o código HTTP 404 e com o corpo (body) vazio.
+Para visualizar o resultado deste desafio, siga as etapas abaixo. Certifique-se de ter o [Git](https://git-scm.com/), [NodeJS](https://nodejs.org/) e o [NPM](https://www.npmjs.com/) instalados.
 
-## Rodando a API da 180 pela primeira vez
-
-Para rodar a API da 180 em seu computador, você deve ter o [Git](https://git-scm.com/), [NodeJS](https://nodejs.org/) e o [NPM](https://www.npmjs.com/) instalados. Caso não tenha, consulte o seu material da Laboratória para mais instruções.
-
-Primeiro, você deve clonar o repositorio na sua máquina:
+Passo 1: Execute o seguinte comando para clonar o repositório na sua máquina:
 
 ```bash
-git clone https://github.com/180seg/laboratoria-180.git
+git clone https://github.com/PolyanaCristinaFeitoza/Desafio-180S.git
 ```
 
-Na pasta raiz do projeto, vamos instalar as dependências. Primeiro acesse a pasta com o comando:
+Passo 2: Acesse a pasta raiz do projeto:
 
 ```bash
 cd laboratoria-180
 ```
 
-e depois rode o comando para instalar as dependências:
+Passo 3: Em seguida, instale as dependências do projeto:
 
 ```bash
 npm install
 ```
 
-Agora que as dependências do projeto estão instaladas, a nossa API está pronta para rodar! Podemos subir a aplicação através do comando:
+Passo 4: Inicie a API com o seguinte comando:
 
 ```bash
 npm start
 ```
 
-Caso a mensagem `Desafio Laboratoria <> 180 Seguros rodando na porta 3000` seja exibida no seu terminal, você conseguiu subir a API com sucesso e temos a nossa aplicação rodando no endereço `http://localhost:3000`.
+Se tudo ocorrer corretamente, você verá a mensagem Desafio Laboratoria <> 180 Seguros rodando na porta 3000 no seu terminal. Isso significa que a API está em execução e pode ser acessada em http://localhost:3000.
 
-## Criando os primeiros segurados
+Agora a API está pronta para ser utilizada localmente em seu computador!
 
-Agora, você pode começar a criar alguns segurados que serão utilizados no desafio. Para isso, utilize o endpoint `POST /policyholders`, enviando o body, no formato JSON. Por exemplo:
+## Funcionalidades
 
-```json
-{
-  "id": 42,
-  "name": "Joana Ferreira"
-}
-```
+A API permite três ações: 
+- Visualizar todos os segurados existentes
+- Criar novos segurados
+- Buscar um segurado específico pelo ID
 
-Podemos utilizar a ferramenta [Postman](https://www.postman.com/) para acessar os endpoints da API. Faça o download da ferramenta [aqui neste link](https://www.postman.com/downloads/) e cadastre-se para acessar o software.
+Rotas:
 
-Abaixo temos um print com um exemplo de chamada para a rota de criar segurados:
+``GET /policyholders:`` Retorna todos os segurados cadastrados em um array com o código HTTP 200
 
-![Criando segurados no Postman](./resources/postman-1.png)
+``POST /policyholders:`` Em caso de sucesso, cadastra um novo segurado com o código HTTP 201 e, em caso de falha, retorna o erro e o código HTTP 400
 
-## Testando o seu endpoint
+``GET /policyholders/:policyholderId:`` Caso o segurado exista, retorna os seus dados com o código HTTP 200 e, caso não exista, retorna o código HTTP 404 e com o corpo (_body_) vazio.
 
-Você também pode utilizar o Postman para acessar a rota do seu desafio:
 
-![Buscando segurados por ID no Postman](./resources/postman-2.png)
+## Testes unitários
 
-Ao final do desafio, a sua resposta do Postman deve estar semelhante a imagem acima.
+Os testes fornecidos são responsáveis por verificar o correto funcionamento de algumas funções relacionadas a manipulação de dados de policyholders. Os testes unitários não eram parte obrigatória do desafio, mas as desenvolvedoras decidiram criá-los pois iriam enriquecer o trabalho final.
 
-**IMPORTANTE**: Não se esqueça que toda vez que você alterar o código, deve subir a aplicação novamente, ok? E, como o nosso "banco de dados" está em memória, ao subir a aplicação, você terá que cadastrar os segurados novamente.
+No entanto, há um terceiro teste, 'createPolicyholder', que está configurado para verificar se a função 'createPolicyholder' retorna um status 400 quando uma requisição vazia é fornecida. Esse teste foi implementado, mas as desenvolvedoras não conseguiram cobrir essa linha de código especificamente, pois demandaria mudanças significativas no código já desenvolvido por terceiros e entenderam que esse não era o objetivo da tarefa.
 
-## Entrando em detalhes da API 180
+Os testes existentes focam na cobertura de funcionalidades específicas e verificações de retorno de dados, mas não abordam exaustivamente todas as possibilidades de erros e validações. Ainda assim, eles são úteis para garantir o funcionamento básico das funções essenciais e podem ser ampliados posteriormente para uma cobertura mais completa.
 
-O código do projeto está na pasta `src/` e possui 3 arquivos ou camadas:
+![Tabela](./resources/tabela.jpeg)
 
-- `app.js`: Ponto de entrada da aplicação. Aqui são feitas todas as configurações da nossa API, definições das rotas e é onde subimos a aplicação. A rota do desafio `/policyholders/:policyholderId` já está criada aqui.
-- `controller.js`: Responsável por juntar e orquestrar o código da API. As rotas chamam as funções do controller e é dentro delas em que ocorrem validações, chamadas para a camada do banco de dados, definição de respostas, entre outras coisas. A função principal do desafio `getPolicyholderById` também já está criada mas ainda não está implementada. É aqui em que grande parte do desafio vai se passar.
-- `db.js`: Camada de acesso ao "banco de dados". No nosso desafio, não estamos utilizando um banco de dados real porém, estamos simulando o seu funcionamento através de variáveis em memória. É possível que a função do desafio também já exista mas descobrir fica como parte do desafio :)
 
-O projeto utiliza somente 2 dependências:
+## Melhorias
 
-- [express](https://expressjs.com/): servidor HTTP.
-- [express-validator](https://express-validator.github.io/docs/): biblioteca que ajuda a validar os dados recebidos nas rotas da API. Uso `opcional` no desafio.
+Aumentar a cobertura dos testes unitários para 100% e reformular a aplicação com um banco de dados real.
 
-Temos as seguintes rotas já implementadas para que você possa utilizar durante o desafio:
+## Participantes do desafio
+<div align="center">
 
-- `GET /policyholders`: Retorna todos os segurados cadastrados, em um array.
-- `POST /policyholders`: Cadastra um novo segurado.
+[<img loading="lazy" src="./resources/polyana1.jpeg" width=115 height=115><br><sub>Polyana Feitoza</sub>](https://www.linkedin.com/in/polyftza/) |  [<img loading="lazy" src="./resources/daphne.jpeg" width=115 height=115><br><sub>Daphne Vilhar</sub>](https://www.linkedin.com/in/daphnevilhar/) |  [<img loading="lazy" src="./resources/aline.jpeg" width=115 height=115><br><sub>Aline Guiseline</sub>](https://www.linkedin.com/in/alineguiseline/) |
+| :---: | :---: | :---: |
+| [<img loading="lazy" src="./resources/keila.jpeg" width=115 height=115><br><sub>Keila Oliveira</sub>](https://www.linkedin.com/in/keilaoliveiradev/) |  [<img loading="lazy" src="./resources/marina1.jpeg" width=115 height=115><br><sub>Marina Cezário</sub>](https://www.linkedin.com/in/marina-cezario/) |  [<img loading="lazy" src="./resources/vanessa.jpeg" width=115 height=115><br><sub>Vanessa Menezes</sub>](https://www.linkedin.com/in/vanessa-do-nascimento-menezes/)
 
-## Orientações
-
-- Você pode utilizar as rotas já existentes `POST /policyholders` e `GET /policyholders` para cadastrar e visualizar os segurados existentes, respectivamente. Após cadastrar um segurado, você já pode testar o seu novo endpoint `GET /policyholders` com o ID do segurado cadastrado.
-- O projeto utiliza a biblioteca [express-validator](https://express-validator.github.io/docs/), que ajuda bastante na criação de validações mas seu uso no desafio é totalmente opcional. É possível resolver o desafio sem utilizá-la.
-- Lembrando que, para acessar algum endpoint da API, devemos sempre juntar o endereço em que a aplicação está rodando + a rota. Por exemplo, para acessar a rota `GET /policyholders/1`, no Postman, devemos colocar na URL o valor `http://localhost:3000/policyholders/1` e o método `GET`.
-- A documentação oficial do projeto é sempre a sua melhor amiga. Na documentação do [Express](https://expressjs.com/en/starter/hello-world.html) temos vários exemplos que podem te ajudar. [Nesta página](https://expressjs.com/en/guide/routing.html), por exemplo, temos a explicação de como pegar os `Route parameters`, que será essencial no nosso desafio.
-- As outras rotas já existentes estão aí pra te ajudar! Você pode roubar algumas ideias que estão em outras funções, se você quiser :)
+</div>
